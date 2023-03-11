@@ -1,12 +1,14 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import Footer from "../Shared/Footer";
+import Header from "../Shared/Header";
 
 const Main = () => {
   return (
     <div className="container mx-auto max-w-7xl">
-      <h2 className="text-3xl text-center">Header</h2>
+      <Header />
       <Outlet />
-      <h2 className="text-3xl text-center">Footer</h2>
+      <Footer />
     </div>
   );
 };
