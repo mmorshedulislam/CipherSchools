@@ -4,24 +4,60 @@ const thumbsupply = require("thumbsupply");
 const cors = require("cors");
 const app = express();
 
+// const videos = [
+//   {
+//     id: 0,
+//     poster: "/video/0/poster",
+//     duration: "3 mins",
+//     name: "Sample 1",
+//   },
+//   {
+//     id: 1,
+//     poster: "/video/1/poster",
+//     duration: "4 mins",
+//     name: "Sample 2",
+//   },
+//   {
+//     id: 2,
+//     poster: "/video/2/poster",
+//     duration: "2 mins",
+//     name: "Sample 3",
+//   },
+// ];
+
 const videos = [
   {
-    id: 0,
-    poster: "/video/0/poster",
-    duration: "3 mins",
-    name: "Sample 1",
-  },
-  {
     id: 1,
-    poster: "/video/1/poster",
-    duration: "4 mins",
-    name: "Sample 2",
+    title: "The Breathtaking Beauty of Nature | HD",
+    url: "IUN664s7N-c",
+    thumb: "https://i.ytimg.com/vi/IUN664s7N-c/maxresdefault.jpg",
+    duration: 1,
+    views: 233
   },
   {
     id: 2,
-    poster: "/video/2/poster",
-    duration: "2 mins",
-    name: "Sample 3",
+    title: "The Magnificent Beauty of Nature | Adiemus • HD",
+    url: "B66lqt0K2I0",
+    thumb: "https://i.ytimg.com/vi/B66lqt0K2I0/maxresdefault.jpg",
+    duration: 4,
+    views: 89
+  },
+  {
+    id: 3,
+    title:
+      "Epic Inspirational and Cinematic Motivational Background Music - by AShamaluevMusic",
+    url: "CvLHKUtcFg4",
+    thumb: "https://i.ytimg.com/vi/CvLHKUtcFg4/maxresdefault.jpg",
+    duration: 2,
+    views: 120
+  },
+  {
+    id: 4,
+    title: "Cinematic Background Music - Into The Nature Vol. 01",
+    url: "S6W9bNo4wHk",
+    thumb: "https://i.ytimg.com/vi/S6W9bNo4wHk/maxresdefault.jpg",
+    duration: 3,
+    views: 70
   },
 ];
 
@@ -45,6 +81,11 @@ app.get("/video/:id/poster", function (req, res) {
 
 // endpoint to fetch a single video's metadata
 app.get("/video/:id/data", function (req, res) {
+  const id = parseInt(req.params.id, 10);
+  res.json(videos[id]);
+});
+
+app.get("/player/:id", function (req, res) {
   const id = parseInt(req.params.id, 10);
   res.json(videos[id]);
 });
