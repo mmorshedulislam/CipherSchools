@@ -1,15 +1,9 @@
-import logo from "./logo.svg";
 import "./App.css";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/routes";
 
 function App() {
-  return (
-    <div className="App">
-      <h2>Hello</h2>
-      <video controls muted>
-        <source src="http://localhost:5000/video" type="video/mp4"></source>
-      </video>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
