@@ -4,7 +4,7 @@ import Video from "../Video/Video";
 const Home = () => {
   const [videos, setVideos] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/videos`)
+    fetch(`https://server-cipher-schools.vercel.app/videos`)
       .then((res) => res.json())
       .then((data) => {
         setVideos(data);
@@ -13,9 +13,9 @@ const Home = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-4 gap-5 border p-5">
+      <div className="grid grid-cols-4 gap-5 p-5">
         {videos.map((video, i) => (
-          <Video video={video} key={i}/>
+          <Video video={video} key={i} />
         ))}
       </div>
     </div>

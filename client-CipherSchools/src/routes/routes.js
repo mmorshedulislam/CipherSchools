@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
       {
         path: "/player/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/player/${params.id}`),
+          fetch(`https://server-cipher-schools.vercel.app/player/${params.id}`),
         element: <Player />,
       },
     ],
