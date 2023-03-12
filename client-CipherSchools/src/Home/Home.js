@@ -20,9 +20,7 @@ const Home = () => {
   } = useQuery({
     queryKey: ["videos"],
     queryFn: () =>
-      fetch(`http://localhost:5000/videos`).then((res) =>
-        res.json()
-      ),
+      fetch(`${process.env.REACT_APP_PORT}/videos`).then((res) => res.json()),
   });
 
   return (

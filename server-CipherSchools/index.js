@@ -62,6 +62,9 @@ async function run() {
   try {
     const videoCollection = client.db("cipherschools").collection("videos");
     const commentCollection = client.db("cipherschools").collection("comments");
+    const notificationCollection = client
+      .db("cipherschools")
+      .collection("notifications");
 
     // add video
     app.post("/addvideo", async (req, res) => {
@@ -100,6 +103,19 @@ async function run() {
         .toArray();
       res.send(videos);
     });
+
+    // new notification
+    app.post("/newnotification", async (req, res) => {
+      const video = req.body;
+      const result = await notificationCollection.insertOne(video);
+      res.send(result);
+    });
+
+    // get all notification
+    app.get("/notifications", async (req, res) => {
+      const notifications = await notificationCollection.find({}).toArray();
+      res.send(notifications);
+    });
   } finally {
   }
 }
@@ -109,12 +125,6 @@ run().catch(console.dir);
 app.get("/video/:id/caption", function (req, res) {
   res.sendFile("assets/captions/sample.vtt", { root: __dirname });
 });
-
-// Get Video and it's desc
-// app.get("/player/:id", function (req, res) {
-//   const id = parseInt(req.params.id, 10);
-//   res.json(videos[id]);
-// });
 
 app.listen(5000, function () {
   console.log("Listening on port 5000!");

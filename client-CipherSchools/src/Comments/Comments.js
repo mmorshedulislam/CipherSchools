@@ -3,12 +3,10 @@ import React from "react";
 import Comment from "./Comment";
 
 const Comments = () => {
-  const {
-    data: comments,
-  } = useQuery({
+  const { data: comments } = useQuery({
     queryKey: ["comments"],
     queryFn: () =>
-      fetch(`http://localhost:5000/comments`).then((res) => res.json()),
+      fetch(`${process.env.REACT_APP_PORT}/comments`).then((res) => res.json()),
   });
   return (
     <div className="border">
