@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-4 gap-5 p-5">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 p-5">
         {videos.map((video, i) => (
           <Video video={video} key={i} />
         ))}
