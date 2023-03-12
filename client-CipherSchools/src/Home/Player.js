@@ -9,7 +9,7 @@ const Player = () => {
   const video = useLoaderData();
   return (
     <div className="border p-10">
-      <div className="grid grid-cols-2 gap-10">
+      <div className="grid lg:grid-cols-2 gap-10">
         <div>
           <iframe
             width="100%"
