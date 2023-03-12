@@ -4,6 +4,7 @@ import { BiTimeFive } from "react-icons/bi";
 import { useLoaderData } from "react-router-dom";
 import CommentBox from "../Comments/CommentBox";
 import Comments from "../Comments/Comments";
+import Share from "../Shared/Share";
 
 const Player = () => {
   const video = useLoaderData();
@@ -53,6 +54,8 @@ const Player = () => {
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque
             recusandae voluptate corrupti?
           </p>
+          <p className="mt-32">Share with</p>
+          <Share />
         </div>
       </div>
       <div className="grid lg:grid-cols-2 gap-5">

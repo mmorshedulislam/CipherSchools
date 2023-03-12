@@ -27,7 +27,7 @@ const CommentBox = ({ video }) => {
         }
       });
 
-    fetch(`http://localhost:5000/newnotification`, {
+    fetch(`${process.env.REACT_APP_PORT}/newnotification`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
