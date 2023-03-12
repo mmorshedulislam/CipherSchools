@@ -1,6 +1,6 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
-import Comments from "../Home/Comments";
+// import Comments from "../Home/Comments";
 import Home from "../Home/Home";
 import Player from "../Home/Player";
 
@@ -15,7 +15,7 @@ const HomeLayout = () => {
         </div>
         <div>
           <Player video={video} />
-          <Comments />
+          {/* <Comments /> */}
         </div>
       </div>
     </div>
