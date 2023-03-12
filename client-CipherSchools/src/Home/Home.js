@@ -15,11 +15,12 @@ const Home = () => {
   const {
     isLoading,
     error,
+    refetch,
     data: videos,
   } = useQuery({
     queryKey: ["videos"],
     queryFn: () =>
-      fetch("https://server-cipher-schools.vercel.app/videos").then((res) =>
+      fetch(`http://localhost:5000/videos`).then((res) =>
         res.json()
       ),
   });

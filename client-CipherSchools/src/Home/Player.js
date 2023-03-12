@@ -2,7 +2,8 @@ import React from "react";
 import { AiFillEye } from "react-icons/ai";
 import { BiTimeFive } from "react-icons/bi";
 import { useLoaderData } from "react-router-dom";
-import Comment from "../Comments/Comment";
+import CommentBox from "../Comments/CommentBox";
+import Comments from "../Comments/Comments";
 
 const Player = () => {
   const video = useLoaderData();
@@ -36,9 +37,10 @@ const Player = () => {
           </p>
         </div>
       </div>
-      <Comment />
-      <Comment />
-      <Comment />
+      <div className="grid lg:grid-cols-2 gap-5">
+        <CommentBox />
+        <Comments />
+      </div>
     </div>
   );
 };
