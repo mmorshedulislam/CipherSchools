@@ -4,7 +4,7 @@ import { GrNotification } from "react-icons/gr";
 
 const Header = () => {
   return (
-    <div className="flex justify-between items-center my-5 border rounded-full px-8 py-5">
+    <div className="flex justify-between items-center my-2 border rounded-full px-8 py-5">
       <Link>
         <h2 className="text-3xl uppercase">cipherschools</h2>
       </Link>
