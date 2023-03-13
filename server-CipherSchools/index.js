@@ -86,6 +86,25 @@ async function run() {
       const notifications = await notificationCollection.find({}).toArray();
       res.send(notifications);
     });
+
+    // add to like
+    app.put("/addtolike/:id", async (req, res) => {
+      const id = req.params.id;
+      const likes = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updatedDoc = {
+        $set: {
+          likes: likes.likes + 1 || 1,
+        },
+      };
+      const result = await videoCollection.updateOne(
+        filter,
+        updatedDoc,
+        options
+      );
+      res.send(result);
+    });
   } finally {
   }
 }
