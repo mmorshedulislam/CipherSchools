@@ -9,7 +9,7 @@ const Comments = () => {
       fetch(`${process.env.REACT_APP_PORT}/comments`).then((res) => res.json()),
   });
   return (
-    <div className="border">
+    <div className="border mt-5">
       {comments?.map((comment, i) => (
         <Comment key={i} comment={comment} />
       ))}

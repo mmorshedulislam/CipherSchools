@@ -44,6 +44,12 @@ async function run() {
       res.send(videos);
     });
 
+    // get all trending videos
+    app.get("/trending", async (req, res) => {
+      const videos = await videoCollection.find({}).sort({ _id: -1 }).toArray();
+      res.send(videos);
+    });
+
     // get video by id
     app.get("/player/:id", async (req, res) => {
       const id = req.params.id;

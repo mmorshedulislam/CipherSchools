@@ -3,18 +3,17 @@ import React, { useEffect, useState } from "react";
 import Video from "../Video/Video";
 
 const Home = () => {
-  // const [videos, setVideos] = useState([]);
-  // useEffect(() => {
-  //   fetch(`https://server-cipher-schools.vercel.app/videos`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setVideos(data);
-  //     });
-  // }, []);
+  const [trends, setTrends] = useState([]);
+  useEffect(() => {
+    fetch(`https://server-cipher-schools.vercel.app/trending`)
+      .then((res) => res.json())
+      .then((data) => {
+        setTrends(data);
+      });
+  }, []);
 
   const {
     isLoading,
-    error,
     refetch,
     data: videos,
   } = useQuery({
@@ -23,12 +22,29 @@ const Home = () => {
       fetch(`${process.env.REACT_APP_PORT}/videos`).then((res) => res.json()),
   });
 
+  if (isLoading) {
+    <div>Loading...</div>
+  }
+
   return (
     <div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 p-5">
-        {videos?.map((video, i) => (
-          <Video video={video} key={i} />
-        ))}
+      <div className="bg-gray-50  py-5">
+        <h2 className="font-semibold ml-2 text-2xl text-gray-800">
+          Most Watched
+        </h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+          {videos?.map((video, i) => (
+            <Video video={video} key={i} />
+          ))}
+        </div>
+      </div>
+      <div className="my-5">
+        <h2 className="font-semibold ml-2 text-2xl text-gray-800">Trending</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3">
+          {trends?.map((video, i) => (
+            <Video video={video} key={i} />
+          ))}
+        </div>
       </div>
     </div>
   );

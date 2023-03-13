@@ -44,7 +44,7 @@ const CommentBox = ({ video }) => {
         <textarea
           name="comment"
           id=""
-          className="w-full h-24 py-3 px-5 rounded-md block mb-3 border"
+          className="w-full h-32 py-3 px-5 rounded-md block mb-3 border"
           placeholder="Write Your Comment..."
         ></textarea>
         <input
