@@ -1,6 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const thumbsupply = require("thumbsupply");
+const port = process.env.PORT || 5000;
 require("dotenv").config();
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
@@ -30,10 +31,9 @@ async function run() {
       .db("cipherschools")
       .collection("notifications");
 
-    // add video
+    // add new video
     app.post("/addvideo", async (req, res) => {
       const video = req.body;
-      console.log(video);
       const result = await videoCollection.insertOne(video);
       res.send(result);
     });
@@ -41,6 +41,12 @@ async function run() {
     // get all videos
     app.get("/videos", async (req, res) => {
       const videos = await videoCollection.find({}).toArray();
+      res.send(videos);
+    });
+
+    // get all trending videos
+    app.get("/trending", async (req, res) => {
+      const videos = await videoCollection.find({}).sort({ _id: -1 }).toArray();
       res.send(videos);
     });
 
@@ -52,7 +58,7 @@ async function run() {
       res.send(video);
     });
 
-    // add comment
+    // add new comment
     app.post("/addcomment", async (req, res) => {
       const comment = req.body;
       const result = await commentCollection.insertOne(comment);
@@ -68,28 +74,49 @@ async function run() {
       res.send(videos);
     });
 
-    // new notification
+    // add new notification
     app.post("/newnotification", async (req, res) => {
       const video = req.body;
       const result = await notificationCollection.insertOne(video);
       res.send(result);
     });
 
-    // get all notification
+    // get all notifications
     app.get("/notifications", async (req, res) => {
-      const notifications = await notificationCollection.find({}).toArray();
+      const notifications = await notificationCollection
+        .find({})
+        .sort({ _id: -1 })
+        .toArray();
       res.send(notifications);
+    });
+
+    // add to like
+    app.put("/addtolike/:id", async (req, res) => {
+      const id = req.params.id;
+      const likes = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updatedDoc = {
+        $set: {
+          likes: likes.likes + 1 || 1,
+        },
+      };
+      const result = await videoCollection.updateOne(
+        filter,
+        updatedDoc,
+        options
+      );
+      res.send(result);
     });
   } finally {
   }
 }
 run().catch(console.dir);
 
-// Get video caption
-app.get("/video/:id/caption", function (req, res) {
-  res.sendFile("assets/captions/sample.vtt", { root: __dirname });
+app.get("/", (req, res) => {
+  res.send("The Server is Running...");
 });
 
-app.listen(5000, function () {
-  console.log("Listening on port 5000!");
+app.listen(port, function () {
+  console.log("Listening on port", port);
 });

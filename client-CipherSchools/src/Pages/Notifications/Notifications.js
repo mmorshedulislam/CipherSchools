@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const Notifications = () => {
+  // get notifications
   const { data: notifications } = useQuery({
     queryKey: ["notifications"],
     queryFn: () =>
@@ -9,6 +10,7 @@ const Notifications = () => {
         res.json()
       ),
   });
+
   return (
     <>
       {notifications?.map((notify, i) => (
@@ -17,8 +19,8 @@ const Notifications = () => {
           key={notify?._id}
           notify={notify}
         >
-          {i + 1}.  A user post a new comment on <strong>{notify?.title}</strong>{" "}
-          video.
+          {i + 1}. Someone post a new comment on{" "}
+          <strong>{notify?.title}</strong> video.
         </div>
       ))}
     </>

@@ -12,9 +12,9 @@ const Header = () => {
       ),
   });
   return (
-    <div className="flex justify-between items-center my-2 border rounded-full px-8 py-5">
+    <div className="flex justify-between items-center my-2 border rounded-full px-8 py-3">
       <Link to={"/"}>
-        <h2 className="text-3xl uppercase">cipherschools</h2>
+        <h2 className="text-3xl uppercase">cipherSchools</h2>
       </Link>
       <Link to={"/notifications"} className="relative">
         <div>

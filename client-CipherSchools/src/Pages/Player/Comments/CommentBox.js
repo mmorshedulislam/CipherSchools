@@ -1,7 +1,7 @@
 import React from "react";
 import { toast } from "react-hot-toast";
 
-const CommentBox = ({ video }) => {
+const CommentBox = ({ video, refetch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -23,6 +23,7 @@ const CommentBox = ({ video }) => {
       .then((data) => {
         if (data.insertedId) {
           form.reset();
+          refetch();
           toast.success("Comment Submitted");
         }
       });
@@ -32,10 +33,15 @@ const CommentBox = ({ video }) => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(video),
+      body: JSON.stringify({ title: video?.title }),
     })
       .then((res) => res.json())
-      .then((data) => data);
+      .then((data) => {
+        if (data.insertedId) {
+          refetch();
+          toast.success("You have a new notification!");
+        }
+      });
   };
 
   return (
@@ -44,7 +50,7 @@ const CommentBox = ({ video }) => {
         <textarea
           name="comment"
           id=""
-          className="w-full h-24 py-3 px-5 rounded-md block mb-3 border"
+          className="w-full h-32 py-3 px-5 rounded-md block mb-3 border"
           placeholder="Write Your Comment..."
         ></textarea>
         <input
