@@ -1,9 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../Home/Home";
-import Player from "../Home/Player";
-import HomeLayout from "../layouts/HomeLayout";
+import Home from "../Pages/Home/Home";
 import Main from "../layouts/Main";
-import Notifications from "../Notifications/Notifications";
+import Player from "../Pages/Player/Player";
+import Notifications from "../Pages/Notifications/Notifications";
 
 export const router = createBrowserRouter([
   {

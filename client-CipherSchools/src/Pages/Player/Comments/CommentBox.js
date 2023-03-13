@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { toast } from "react-hot-toast";
+import { APIContext } from "../../../Contexts/APIProvider/APIProvider";
 
 const CommentBox = ({ video }) => {
+  const { refetch } = useContext(APIContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -23,6 +25,7 @@ const CommentBox = ({ video }) => {
       .then((data) => {
         if (data.insertedId) {
           form.reset();
+          refetch();
           toast.success("Comment Submitted");
         }
       });
