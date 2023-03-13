@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { toast } from "react-hot-toast";
-import { APIContext } from "../../../Contexts/APIProvider/APIProvider";
 
-const CommentBox = ({ video }) => {
-  const { refetch } = useContext(APIContext);
+const CommentBox = ({ video, refetch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -35,10 +33,15 @@ const CommentBox = ({ video }) => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(video),
+      body: JSON.stringify({ title: video?.title }),
     })
       .then((res) => res.json())
-      .then((data) => data);
+      .then((data) => {
+        if (data.insertedId) {
+          refetch();
+          toast.success("You have a new notification!");
+        }
+      });
   };
 
   return (

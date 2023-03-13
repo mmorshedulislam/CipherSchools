@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Share from "../../Shared/Share";
 import { AiFillEye } from "react-icons/ai";
 import { BiTimeFive } from "react-icons/bi";
 import { FcLike } from "react-icons/fc";
+import { toast } from "react-hot-toast";
 
 const VideoDesc = ({ video }) => {
+  const [newLikes, setNewLikes] = useState(video?.likes);
   const addToLike = () => {
-    fetch(`http://localhost:5000/addtolike/${video?._id}`, {
+    fetch(`${process.env.REACT_APP_PORT}/addtolike/${video?._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({likes: video?.likes}),
+      body: JSON.stringify({ likes: video?.likes }),
     })
       .then((res) => res.json())
-      .then((data) => data);
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.success("Liked!");
+          setNewLikes(newLikes + 1);
+        }
+      });
   };
 
   return (
@@ -51,7 +58,7 @@ const VideoDesc = ({ video }) => {
         </p>
         <p className="flex justify-between items-center gap-x-1">
           <FcLike className="" />
-          {video?.likes ? video?.likes : 0} likes
+          {newLikes ? newLikes : 0} likes
         </p>
       </div>
       <p className="text-justify mt-3">

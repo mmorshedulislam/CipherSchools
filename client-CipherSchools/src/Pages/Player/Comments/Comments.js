@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
-import { APIContext } from "../../../Contexts/APIProvider/APIProvider";
+import React from "react";
 import Comment from "./Comment";
 
-const Comments = () => {
-  const { comments } = useContext(APIContext);
+const Comments = ({ comments }) => {
   return (
     <div className="border mt-5">
       {comments?.map((comment, i) => (

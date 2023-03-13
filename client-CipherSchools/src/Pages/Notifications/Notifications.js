@@ -1,8 +1,15 @@
-import React, { useContext } from "react";
-import { APIContext } from "../../Contexts/APIProvider/APIProvider";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
 
 const Notifications = () => {
-  const { notifications } = useContext(APIContext);
+  // get notifications
+  const { data: notifications } = useQuery({
+    queryKey: ["notifications"],
+    queryFn: () =>
+      fetch(`${process.env.REACT_APP_PORT}/notifications`).then((res) =>
+        res.json()
+      ),
+  });
 
   return (
     <>
@@ -12,8 +19,8 @@ const Notifications = () => {
           key={notify?._id}
           notify={notify}
         >
-          {i + 1}. A user post a new comment on <strong>{notify?.title}</strong>{" "}
-          video.
+          {i + 1}. Someone post a new comment on{" "}
+          <strong>{notify?.title}</strong> video.
         </div>
       ))}
     </>

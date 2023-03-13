@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
 import { useLoaderData } from "react-router-dom";
 import CommentBox from "./Comments/CommentBox";
 import Comments from "./Comments/Comments";
@@ -6,26 +7,23 @@ import VideoDesc from "./VideoDesc";
 
 const Player = () => {
   const video = useLoaderData();
-  const [videoData, setVideoData] = useState({});
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    fetch(
-      `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${video?.url}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setVideoData(data);
-        setLoading(false);
-      });
-  }, [video?.url]);
+  // get comments
+  const {
+    isLoading,
+    refetch,
+    data: comments,
+  } = useQuery({
+    queryKey: ["comments"],
+    queryFn: () =>
+      fetch(`${process.env.REACT_APP_PORT}/comments`).then((res) => res.json()),
+  });
 
-  if (loading) {
+  if (isLoading) {
     return <div>Loading</div>;
   }
   return (
-    <div className="p-2 lg:py-10">
+    <div className="p-2 lg:py-5">
       <div className="grid lg:grid-cols-2 gap-10 my-5 bg-gray-100 p-2 lg:p-5 rounded-2xl">
         <div>
           <iframe
@@ -40,8 +38,8 @@ const Player = () => {
           <VideoDesc video={video} />
         </div>
         <div>
-          <CommentBox video={video} />
-          <Comments />
+          <CommentBox video={video} refetch={refetch} />
+          <Comments comments={comments} />
         </div>
       </div>
     </div>
