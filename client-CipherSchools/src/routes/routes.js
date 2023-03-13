@@ -3,6 +3,7 @@ import Home from "../Home/Home";
 import Player from "../Home/Player";
 import HomeLayout from "../layouts/HomeLayout";
 import Main from "../layouts/Main";
+import Notifications from "../Notifications/Notifications";
 
 export const router = createBrowserRouter([
   {
@@ -16,8 +17,12 @@ export const router = createBrowserRouter([
       {
         path: "/player/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/player/${params.id}`),
+          fetch(`${process.env.REACT_APP_PORT}/player/${params.id}`),
         element: <Player />,
+      },
+      {
+        path: "/notifications",
+        element: <Notifications />,
       },
     ],
   },

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AiFillEye } from "react-icons/ai";
 import { BiTimeFive } from "react-icons/bi";
-import { AiOutlinePlayCircle } from "react-icons/ai"; 
+import { AiOutlinePlayCircle } from "react-icons/ai";
 
 const Video = ({ video }) => {
   return (
@@ -20,7 +20,7 @@ const Video = ({ video }) => {
       <Link to={`/player/${video?._id}`}>
         <div className="relative">
           <img className="rounded-xl" src={video?.thumb} alt="" />
-          <AiOutlinePlayCircle className="text-4xl text-white absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"/>
+          <AiOutlinePlayCircle className="text-4xl text-white absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" />
         </div>
         <h2 className="my-1 text-xl">{video.title.slice(0, 25)}...</h2>
       </Link>

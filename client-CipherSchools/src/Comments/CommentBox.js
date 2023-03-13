@@ -1,7 +1,7 @@
 import React from "react";
 import { toast } from "react-hot-toast";
 
-const CommentBox = () => {
+const CommentBox = ({ video }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -12,7 +12,7 @@ const CommentBox = () => {
       comment,
     };
 
-    fetch(`http://localhost:5000/addcomment`, {
+    fetch(`${process.env.REACT_APP_PORT}/addcomment`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -26,6 +26,16 @@ const CommentBox = () => {
           toast.success("Comment Submitted");
         }
       });
+
+    fetch(`${process.env.REACT_APP_PORT}/newnotification`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(video),
+    })
+      .then((res) => res.json())
+      .then((data) => data);
   };
 
   return (

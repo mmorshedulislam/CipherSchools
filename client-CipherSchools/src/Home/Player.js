@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillEye } from "react-icons/ai";
 import { BiTimeFive } from "react-icons/bi";
 import { useLoaderData } from "react-router-dom";
 import CommentBox from "../Comments/CommentBox";
 import Comments from "../Comments/Comments";
+import Share from "../Shared/Share";
 
 const Player = () => {
   const video = useLoaderData();
+  const [videoData, setVideoData] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(
+      `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${video?.url}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setVideoData(data);
+        setLoading(false);
+      });
+  }, [video?.url]);
+
+  if (loading) {
+    return <div>Loading</div>;
+  }
   return (
     <div className="p-10">
       <div className="grid lg:grid-cols-2 gap-10 my-5">
@@ -21,9 +40,9 @@ const Player = () => {
             allowfullscreen
           ></iframe>
         </div>
-        <div>
+        <div className="">
           <h2 className="my-1 text-xl">{video.title}</h2>
-          <div className="flex justify-between">
+          <div className="flex gap-x-5">
             <p className="flex justify-between items-center gap-x-1">
               <BiTimeFive /> {video.duration} mins
             </p>
@@ -35,10 +54,12 @@ const Player = () => {
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque
             recusandae voluptate corrupti?
           </p>
+          <p className="mt-32">Share with</p>
+          <Share />
         </div>
       </div>
       <div className="grid lg:grid-cols-2 gap-5">
-        <CommentBox />
+        <CommentBox video={video} />
         <Comments />
       </div>
     </div>
